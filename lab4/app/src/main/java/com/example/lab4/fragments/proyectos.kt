@@ -1,6 +1,7 @@
 package com.example.lab4.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,10 @@ import android.view.ViewGroup
 import android.widget.ListView
 
 import com.example.lab4.R
+import com.example.lab4.models.Link
+import com.example.miscontactos.CustomAdapter
 import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.fragment_proyectos.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,16 +31,32 @@ class proyectos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_proyectos, container, false)
-        //Creamos la lista con los repositorios
-        val list: ArrayList<String> =  ArrayList()
-        list.add("lab2")
-        list.add("misContactos")
 
+
+        //Creamos la lista con los repositorios
+
+        val view = inflater.inflate(R.layout.fragment_proyectos, container, false)
         return  view
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val link1 = Link("App de un Restaurante","https://github.com/suulcoder/PlataformasMoviles/tree/master/Lab2",R.drawable.app1)
+        val link2 = Link("App de Contactos","https://github.com/suulcoder/PlataformasMoviles/tree/master/MIsContactos",R.drawable.app2)
+        val list: ArrayList<Link> =  ArrayList()
+        list.add(link1)
+        list.add(link2)
+
+        listarepo.adapter = CustomAdapter(context!!,list)
+
+        //listarepo.setOnItemClickListener { parent, view, position, id ->
+
+        //}
 
     }
+
+
 
 
 }

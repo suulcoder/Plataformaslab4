@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.lab4.fragments.BlankFragment
+import com.example.lab4.fragments.proyectos
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -25,9 +28,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        //load(BlankFragment())
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed() {//Soreescribimos onBackPRessed
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
@@ -41,13 +45,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {//sobre escribimos el metodo para cerrar
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.salir ->{//si se decide salir
+                this.finish()//terminamos la activity
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
+
         }
     }
 
@@ -55,12 +63,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.inicio -> {//Si pide el inicio corremos de nuevo el MainActivity
-                val intento = Intent(this, MainActivity::class.java)//Redirigimos a contactos
-                startActivity(intento)
-                this.finish()
+                load(BlankFragment())
             }
             R.id.proyectos -> {//Si pide proyectos corremos fragment proyectos
-
+                load(proyectos())
             }
             R.id.Direccion -> {//Si pide dirección corremos fragmen direccion
 
@@ -69,5 +75,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+
+    private fun load(fragment: Fragment){//nos permite agregar el fragment a la activity actual
+        val manager = supportFragmentManager
+        manager.beginTransaction().replace(R.id.fragment_container,fragment).commit()
     }
 }
