@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import com.example.lab4.MainActivity
 
 import com.example.lab4.R
 import com.example.lab4.models.Link
+import com.example.lab4.web
 import com.example.miscontactos.CustomAdapter
 import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.activity_list_item.view.*
 import kotlinx.android.synthetic.main.fragment_proyectos.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,11 +53,16 @@ class proyectos : Fragment() {
 
         listarepo.adapter = CustomAdapter(context!!,list)
 
-        //listarepo.setOnItemClickListener { parent, view, position, id ->
-
-        //}
+        listarepo.setOnItemClickListener { parent, view, position, id ->
+            val intento1 = Intent(context!!, web::class.java)
+            intento1.putExtra("link",list[position].link)
+            startActivity(intento1)
+        }
 
     }
+
+
+
 
 
 

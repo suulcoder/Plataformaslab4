@@ -26,9 +26,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
-        //load(BlankFragment())
+
     }
 
     override fun onBackPressed() {//Soreescribimos onBackPRessed
@@ -69,7 +68,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 load(proyectos())
             }
             R.id.Direccion -> {//Si pide dirección corremos fragmen direccion
-
+                val intent = Intent(applicationContext, mapa::class.java)
+                startActivity(intent)
             }
         }
 
