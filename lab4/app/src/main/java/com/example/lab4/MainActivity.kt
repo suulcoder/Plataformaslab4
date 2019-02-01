@@ -1,9 +1,11 @@
 package com.example.lab4
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+        permisos()
         load(BlankFragment())
     }
 
@@ -81,5 +84,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun load(fragment: Fragment){//nos permite agregar el fragment a la activity actual
         val manager = supportFragmentManager
         manager.beginTransaction().replace(R.id.fragment_container,fragment).commit()
+    }
+
+
+    private fun permisos() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_NETWORK_STATE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_NETWORK_STATE), 1)
+        }
     }
 }
